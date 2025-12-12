@@ -4,6 +4,9 @@ on:
   schedule:
     - cron:  '0 * * * *'
 
+permissions:
+  contents: read
+
 env:
   DESTINATION_REPOSITORY: github/codeql-action
   SOURCE_REPOSITORY: ${{ github.repository }}
