@@ -4,6 +4,9 @@ on:
   schedule:
     - cron:  '0 * * * *'
 
+permissions:
+  contents: read
+
 env:
   DESTINATION_REPOSITORY: github/codeql-action
   SOURCE_REPOSITORY: ${{ github.repository }}
@@ -17,7 +20,7 @@ jobs:
 
       - name: Compare The Latest Releases Between Two Repositories
         id: compare-releases
-        uses: NickLiffen/compare-releases@v2.0.4
+        uses: NickLiffen/compare-releases@626496b5cfe13f49d5b79ceeec49ad0170146a67 # v2.0.4
         with:
           destinationRepository: ${{ env.DESTINATION_REPOSITORY }}
           sourceRepository: ${{ env.SOURCE_REPOSITORY }}
@@ -30,7 +33,7 @@ jobs:
 
       - name: Invoke Release Workflow
         if: ${{ steps.compare-releases.outputs.repo == env.DESTINATION_REPOSITORY }}
-        uses: benc-uk/workflow-dispatch@v1
+        uses: benc-uk/workflow-dispatch@e2e5e9a103e331dad343f381a29e654aea3cf8fc # v1.2.4
         with:
           workflow: release
           token: ${{ secrets.GH_TOKEN }}
